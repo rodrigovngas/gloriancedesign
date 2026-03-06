@@ -3,267 +3,354 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gloriance | Haute Couture</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Inter:wght@200;400&display=swap" rel="stylesheet">
-    
+    <title>Gloriance Design - Vestidos de Gala y Juveniles</title>
     <style>
+        /* CSS Minimalista y Premium */
         :root {
-            --bg: #050505;
-            --text: #ffffff;
-            --gold: #c5a059;
-            --font-display: 'Cinzel', serif;
-            --font-sans: 'Inter', sans-serif;
+            --primary-color: #000000; /* Negro para lujo */
+            --secondary-color: #f5f5f5; /* Blanco suave */
+            --accent-color: #d4af37; /* Oro para premium */
+            --font-main: 'Helvetica Neue', sans-serif;
+            --font-heading: 'Playfair Display', serif;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; } /* Cursor personalizado */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
         body {
-            background: var(--bg);
-            color: var(--text);
-            font-family: var(--font-sans);
-            overflow-x: hidden;
+            font-family: var(--font-main);
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
             line-height: 1.6;
+            overflow-x: hidden;
         }
 
-        /* === CURSOR PERSONALIZADO === */
-        #custom-cursor {
-            width: 20px;
-            height: 20px;
-            background: var(--gold);
-            border-radius: 50%;
+        header {
             position: fixed;
-            pointer-events: none;
-            z-index: 9999;
-            mix-blend-mode: difference;
-            transition: transform 0.2s ease-out;
-        }
-
-        /* === NAVBAR RESTAURADA Y MEJORADA === */
-        nav {
-            position: fixed;
-            top: 0; width: 100%;
-            padding: 30px 60px;
-            display: flex; justify-content: space-between; align-items: center;
+            top: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px 0;
+            text-align: center;
             z-index: 1000;
-            transition: background 0.5s ease;
+            transition: background-color 0.3s ease;
         }
 
-        nav.scrolled {
-            background: rgba(5, 5, 5, 0.8);
-            backdrop-filter: blur(15px);
-            padding: 20px 60px;
+        header.scrolled {
+            background-color: rgba(0, 0, 0, 0.8);
+            color: var(--secondary-color);
         }
 
-        .logo { 
-            font-family: var(--font-display); 
-            font-size: 1.8rem; 
-            letter-spacing: 5px; 
-            font-weight: 600;
+        .logo {
+            font-family: var(--font-heading);
+            font-size: 2rem;
+            letter-spacing: 2px;
         }
 
-        .nav-menu { display: flex; gap: 40px; list-style: none; }
-        
-        .nav-menu a {
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        nav ul li {
+            margin: 0 20px;
+        }
+
+        nav ul li a {
             text-decoration: none;
-            color: var(--text);
-            font-size: 0.7rem;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            opacity: 0.6;
-            transition: 0.3s;
+            color: inherit;
+            font-weight: bold;
+            transition: color 0.3s ease;
         }
 
-        .nav-menu a:hover { opacity: 1; color: var(--gold); }
+        nav ul li a:hover {
+            color: var(--accent-color);
+        }
 
-        /* === HERO CON MÁSCARA DE TEXTO === */
         .hero {
             height: 100vh;
             display: flex;
-            align-items: center;
+            flex-direction: column;
             justify-content: center;
-            position: relative;
-        }
-
-        .hero-video-bg {
-            position: absolute;
-            width: 100%; height: 100%;
-            object-fit: cover;
-            opacity: 0.4;
-            z-index: -1;
-        }
-
-        .hero-title {
-            font-family: var(--font-display);
-            font-size: 8vw;
-            text-align: center;
-            line-height: 1;
-            z-index: 10;
-        }
-
-        /* === SECCIÓN DE REVELACIÓN (APPLE STYLE) === */
-        .reveal-section {
-            height: 200vh;
-            background: #000;
-            position: relative;
-        }
-
-        .sticky-box {
-            position: sticky;
-            top: 0; height: 100vh;
-            display: flex; align-items: center; justify-content: center;
-            overflow: hidden;
-        }
-
-        .reveal-text {
-            width: 80%;
-            font-size: 3.5vw;
-            font-family: var(--font-display);
-            text-align: center;
-            background: linear-gradient(to right, #fff 0%, #222 0%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        /* === CATÁLOGO EDITORIAL ASIMÉTRICO === */
-        .catalog { padding: 100px 10%; }
-
-        .item {
-            margin-bottom: 200px;
-            display: flex;
             align-items: center;
-            gap: 100px;
-        }
-
-        .item:nth-child(even) { flex-direction: row-reverse; }
-
-        .item-img {
-            width: 50%;
-            height: 700px;
-            overflow: hidden;
+            background-image: url('https://via.placeholder.com/1920x1080?text=Hero+Image+Premium+Dress'); /* Reemplaza con imagen real */
+            background-size: cover;
+            background-position: center;
+            color: var(--secondary-color);
+            text-align: center;
             position: relative;
         }
 
-        .item-img img {
-            width: 100%; height: 100%;
-            object-fit: cover;
-            transition: transform 1.5s cubic-bezier(0.19, 1, 0.22, 1);
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 1;
         }
 
-        .item-img:hover img { transform: scale(1.1); }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 1s ease, transform 1s ease;
+        }
 
-        .item-info h3 {
-            font-family: var(--font-display);
-            font-size: 3rem;
+        .hero-content.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .hero h1 {
+            font-family: var(--font-heading);
+            font-size: 4rem;
             margin-bottom: 20px;
         }
 
-        .btn-lujo {
-            padding: 15px 40px;
-            background: none;
-            border: 1px solid var(--gold);
-            color: var(--gold);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-top: 30px;
-            transition: 0.4s;
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 40px;
         }
 
-        .btn-lujo:hover {
-            background: var(--gold);
-            color: #000;
+        .cta-button {
+            padding: 15px 30px;
+            background-color: var(--accent-color);
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.3s ease;
         }
 
-        @media (max-width: 768px) {
-            nav { padding: 20px; }
-            .nav-menu { display: none; } /* Aquí iría un icono de menú para móvil */
-            .item { flex-direction: column !important; gap: 40px; }
-            .item-img { width: 100%; height: 400px; }
+        .cta-button:hover {
+            background-color: var(--primary-color);
+            color: var(--secondary-color);
+            transform: scale(1.05);
         }
+
+        .catalog {
+            padding: 100px 20px;
+            text-align: center;
+        }
+
+        .catalog h2 {
+            font-family: var(--font-heading);
+            font-size: 3rem;
+            margin-bottom: 60px;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+
+        .catalog h2.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .dress-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .dress-item {
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .dress-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .dress-item img {
+            width: 100%;
+            height: auto;
+            transition: transform 0.5s ease;
+        }
+
+        .dress-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .dress-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            color: var(--secondary-color);
+            padding: 20px;
+            text-align: center;
+            transform: translateY(100%);
+            transition: transform 0.5s ease;
+        }
+
+        .dress-item:hover .dress-info {
+            transform: translateY(0);
+        }
+
+        .dress-info h3 {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .dress-info p {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+        }
+
+        .add-to-cart {
+            padding: 10px 20px;
+            background-color: var(--accent-color);
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .add-to-cart:hover {
+            background-color: var(--primary-color);
+            color: var(--secondary-color);
+        }
+
+        footer {
+            background-color: var(--primary-color);
+            color: var(--secondary-color);
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        footer p {
+            margin-bottom: 10px;
+        }
+
+        /* Scroll-driven animations con JS */
     </style>
 </head>
 <body>
 
-    <div id="custom-cursor"></div>
+    <header id="header">
+        <div class="logo">Gloriance Design</div>
+        <nav>
+            <ul>
+                <li><a href="#hero">Inicio</a></li>
+                <li><a href="#catalog">Catálogo</a></li>
+                <li><a href="#contact">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
 
-    <nav id="navbar">
-        <div class="logo">GLORIANCE</div>
-        <ul class="nav-menu">
-            <li><a href="#">Colecciones</a></li>
-            <li><a href="#">Atelier</a></li>
-            <li><a href="#">Mundo</a></li>
-            <li><a href="#" style="color: var(--gold);">Bolsa (0)</a></li>
-        </ul>
-    </nav>
-
-    <section class="hero">
-        <img src="https://images.unsplash.com/photo-1515377905703-c4788e51af15?q=80&w=2000&auto=format&fit=crop" class="hero-video-bg" alt="Gala">
-        <h1 class="hero-title">Elegancia<br>Eterna</h1>
-    </section>
-
-    <section class="reveal-section">
-        <div class="sticky-box">
-            <h2 class="reveal-text" id="scrubText">
-                Diseñamos para la mujer que no teme ser el centro del universo. Gloriance es el punto donde la juventud y la alta costura se encuentran.
-            </h2>
+    <section id="hero" class="hero">
+        <div class="hero-content">
+            <h1>Vestidos de Gala y Juveniles</h1>
+            <p>Elegancia atemporal con un toque moderno</p>
+            <a href="#catalog" class="cta-button">Explorar Colección</a>
         </div>
     </section>
 
-    <section class="catalog">
-        <div class="item">
-            <div class="item-img"><img src="https://images.unsplash.com/photo-1539008835657-9e8e9680c956?q=80&w=1000&auto=format&fit=crop" alt="Vestido 1"></div>
-            <div class="item-info">
-                <span>Colección 2026</span>
-                <h3>Seda de Luna</h3>
-                <p>Un vestido que captura el movimiento del agua bajo la luz nocturna.</p>
-                <button class="btn-lujo">Explorar Pieza</button>
+    <section id="catalog" class="catalog">
+        <h2>Nuestra Colección</h2>
+        <div class="dress-grid">
+            <!-- Vestidos de ejemplo - Reemplaza con imágenes reales -->
+            <div class="dress-item">
+                <img src="https://via.placeholder.com/400x600?text=Vestido+1" alt="Vestido de Gala 1">
+                <div class="dress-info">
+                    <h3>Vestido Elegante Negro</h3>
+                    <p>$250.00</p>
+                    <a href="#" class="add-to-cart" onclick="addToCart('Vestido Elegante Negro', 250)">Añadir al Carrito</a>
+                </div>
             </div>
-        </div>
-
-        <div class="item">
-            <div class="item-img"><img src="https://images.unsplash.com/photo-1595777457583-95e059d581b8?q=80&w=1000&auto=format&fit=crop" alt="Vestido 2"></div>
-            <div class="item-info">
-                <span>Edición Limitada</span>
-                <h3>Nuit d'Or</h3>
-                <p>Terciopelo francés con incrustaciones de cristal artesanal.</p>
-                <button class="btn-lujo">Explorar Pieza</button>
+            <div class="dress-item">
+                <img src="https://via.placeholder.com/400x600?text=Vestido+2" alt="Vestido Juvenil 1">
+                <div class="dress-info">
+                    <h3>Vestido Juvenil Rojo</h3>
+                    <p>$180.00</p>
+                    <a href="#" class="add-to-cart" onclick="addToCart('Vestido Juvenil Rojo', 180)">Añadir al Carrito</a>
+                </div>
             </div>
+            <div class="dress-item">
+                <img src="https://via.placeholder.com/400x600?text=Vestido+3" alt="Vestido de Noche 1">
+                <div class="dress-info">
+                    <h3>Vestido de Noche Azul</h3>
+                    <p>$300.00</p>
+                    <a href="#" class="add-to-cart" onclick="addToCart('Vestido de Noche Azul', 300)">Añadir al Carrito</a>
+                </div>
+            </div>
+            <!-- Agrega más items según sea necesario -->
         </div>
     </section>
+
+    <footer id="contact">
+        <p>&copy; 2026 Gloriance Design. Todos los derechos reservados.</p>
+        <p>Contacto: info@gloriancedesign.com</p>
+    </footer>
 
     <script>
-        // --- CURSOR LÓGICA ---
-        const cursor = document.getElementById('custom-cursor');
-        document.addEventListener('mousemove', (e) => {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
+        // JavaScript para animaciones scroll-driven estilo Apple (suaves y minimalistas)
+
+        // Observador para elementos que aparecen al scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target); // Animar solo una vez
+                }
+            });
+        }, observerOptions);
+
+        // Observar hero content
+        const heroContent = document.querySelector('.hero-content');
+        if (heroContent) observer.observe(heroContent);
+
+        // Observar título del catálogo
+        const catalogTitle = document.querySelector('.catalog h2');
+        if (catalogTitle) observer.observe(catalogTitle);
+
+        // Observar items del catálogo con stagger (retraso secuencial)
+        const dressItems = document.querySelectorAll('.dress-item');
+        dressItems.forEach((item, index) => {
+            item.style.transitionDelay = `${index * 0.2}s`; // Stagger effect
+            observer.observe(item);
         });
 
-        document.querySelectorAll('a, button, .item-img').forEach(el => {
-            el.addEventListener('mouseenter', () => cursor.style.transform = 'scale(4)');
-            el.addEventListener('mouseleave', () => cursor.style.transform = 'scale(1)');
-        });
-
-        // --- SCROLL LÓGICA (APPLE TEXT REVEAL) ---
-        const scrubText = document.getElementById('scrubText');
-        const navbar = document.getElementById('navbar');
-
+        // Cambio de header al scroll
         window.addEventListener('scroll', () => {
-            // Navbar cambio de estilo
-            if (window.scrollY > 50) navbar.classList.add('scrolled');
-            else navbar.classList.remove('scrolled');
-
-            // Efecto de revelación de texto
-            const section = document.querySelector('.reveal-section');
-            const sectionTop = section.offsetTop;
-            const sectionHeight = section.offsetHeight - window.innerHeight;
-            const scrollPos = window.scrollY - sectionTop;
-            
-            if (scrollPos >= 0 && scrollPos <= sectionHeight) {
-                const progress = (scrollPos / sectionHeight) * 100;
-                scrubText.style.backgroundSize = `${progress}% 100%`;
-                scrubText.style.backgroundImage = `linear-gradient(to right, #fff ${progress}%, #222 ${progress}%)`;
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
             }
         });
+
+        // Funcionalidad e-commerce básica (simulada con alert, integra con backend real si es necesario)
+        function addToCart(name, price) {
+            alert(`Añadido al carrito: ${name} - $${price}`);
+            // Aquí puedes agregar lógica para carrito real usando localStorage o API
+        }
     </script>
+
 </body>
 </html>
+```        //
