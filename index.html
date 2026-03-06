@@ -3,382 +3,267 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gloriance Design | Alta Costura</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <title>Gloriance | Haute Couture</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Inter:wght@200;400&display=swap" rel="stylesheet">
     
     <style>
-        /* === VARIABLES & RESET === */
         :root {
-            --bg: #000000;
-            --text: #F5F5F7;
-            --text-muted: #424245;
-            --gold: #D4AF37;
+            --bg: #050505;
+            --text: #ffffff;
+            --gold: #c5a059;
             --font-display: 'Cinzel', serif;
             --font-sans: 'Inter', sans-serif;
-            --ease: cubic-bezier(0.25, 1, 0.5, 1);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; } /* Cursor personalizado */
+
         body {
-            background-color: var(--bg);
+            background: var(--bg);
             color: var(--text);
             font-family: var(--font-sans);
             overflow-x: hidden;
-            overscroll-behavior: none;
+            line-height: 1.6;
         }
 
-        /* === CUSTOM SCROLLBAR === */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: var(--bg); }
-        ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+        /* === CURSOR PERSONALIZADO === */
+        #custom-cursor {
+            width: 20px;
+            height: 20px;
+            background: var(--gold);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            mix-blend-mode: difference;
+            transition: transform 0.2s ease-out;
+        }
 
-        /* === NAVBAR BLUR === */
+        /* === NAVBAR RESTAURADA Y MEJORADA === */
         nav {
             position: fixed;
             top: 0; width: 100%;
-            padding: 24px 48px;
+            padding: 30px 60px;
             display: flex; justify-content: space-between; align-items: center;
-            z-index: 100;
-            background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255,255,255,0.05);
+            z-index: 1000;
+            transition: background 0.5s ease;
         }
 
-        .logo { font-family: var(--font-display); font-size: 1.5rem; letter-spacing: 3px; }
+        nav.scrolled {
+            background: rgba(5, 5, 5, 0.8);
+            backdrop-filter: blur(15px);
+            padding: 20px 60px;
+        }
+
+        .logo { 
+            font-family: var(--font-display); 
+            font-size: 1.8rem; 
+            letter-spacing: 5px; 
+            font-weight: 600;
+        }
+
+        .nav-menu { display: flex; gap: 40px; list-style: none; }
         
-        .nav-links a {
-            color: var(--text);
+        .nav-menu a {
             text-decoration: none;
-            margin-left: 40px;
-            font-size: 0.75rem;
-            letter-spacing: 2px;
+            color: var(--text);
+            font-size: 0.7rem;
+            letter-spacing: 3px;
             text-transform: uppercase;
-            transition: color 0.3s;
+            opacity: 0.6;
+            transition: 0.3s;
         }
-        .nav-links a:hover { color: var(--gold); }
 
-        /* === DYNAMIC HERO === */
+        .nav-menu a:hover { opacity: 1; color: var(--gold); }
+
+        /* === HERO CON MÁSCARA DE TEXTO === */
         .hero {
-            position: relative;
             height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
+            position: relative;
+        }
+
+        .hero-video-bg {
+            position: absolute;
+            width: 100%; height: 100%;
+            object-fit: cover;
+            opacity: 0.4;
+            z-index: -1;
+        }
+
+        .hero-title {
+            font-family: var(--font-display);
+            font-size: 8vw;
+            text-align: center;
+            line-height: 1;
+            z-index: 10;
+        }
+
+        /* === SECCIÓN DE REVELACIÓN (APPLE STYLE) === */
+        .reveal-section {
+            height: 200vh;
+            background: #000;
+            position: relative;
+        }
+
+        .sticky-box {
+            position: sticky;
+            top: 0; height: 100vh;
+            display: flex; align-items: center; justify-content: center;
             overflow: hidden;
         }
 
-        /* La imagen reaccionará al scroll gracias al JS */
-        .hero-img-container {
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            z-index: -1;
-            /* Se actualizará con variables CSS dinámicas */
-            transform: translateY(calc(var(--scroll) * 0.4px)); 
-            opacity: calc(1 - (var(--scroll) * 0.0015));
-        }
-
-        .hero-img-container img {
-            width: 100%; height: 100%;
-            object-fit: cover;
-            transform: scale(1.05);
-            filter: brightness(0.6);
-        }
-
-        .hero-content {
-            text-align: center;
-            transform: translateY(calc(var(--scroll) * -0.2px));
-        }
-
-        .hero h1 {
+        .reveal-text {
+            width: 80%;
+            font-size: 3.5vw;
             font-family: var(--font-display);
-            font-size: 6vw;
-            font-weight: 400;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0% 100%);
-            animation: textReveal 1.5s var(--ease) forwards 0.2s;
-        }
-
-        .hero p {
-            margin-top: 20px;
-            font-size: 1rem;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            color: #aaa;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeUp 1s var(--ease) forwards 1s;
-        }
-
-        /* === APPLE-STYLE SCROLL TEXT === */
-        /* Esta sección usa 'sticky' para quedarse quieta mientras el texto se ilumina */
-        .scroll-text-section {
-            height: 300vh; /* Da espacio para hacer scroll */
-            position: relative;
-            background: var(--bg);
-        }
-
-        .sticky-container {
-            position: sticky;
-            top: 0;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0 10%;
-        }
-
-        .scrub-text {
-            font-family: var(--font-display);
-            font-size: 4vw;
-            line-height: 1.3;
             text-align: center;
-            color: var(--text-muted);
-            /* El gradiente se revelará con el scroll */
-            background: linear-gradient(to right, #FFF var(--text-progress), var(--text-muted) var(--text-progress));
+            background: linear-gradient(to right, #fff 0%, #222 0%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
         }
 
-        /* === EDITORIAL E-COMMERCE GRID === */
-        .collection {
-            padding: 150px 5%;
-            background: var(--bg);
+        /* === CATÁLOGO EDITORIAL ASIMÉTRICO === */
+        .catalog { padding: 100px 10%; }
+
+        .item {
+            margin-bottom: 200px;
+            display: flex;
+            align-items: center;
+            gap: 100px;
+        }
+
+        .item:nth-child(even) { flex-direction: row-reverse; }
+
+        .item-img {
+            width: 50%;
+            height: 700px;
+            overflow: hidden;
             position: relative;
-            z-index: 2;
         }
 
-        .section-title {
+        .item-img img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            transition: transform 1.5s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        .item-img:hover img { transform: scale(1.1); }
+
+        .item-info h3 {
             font-family: var(--font-display);
             font-size: 3rem;
-            margin-bottom: 100px;
-            text-align: center;
+            margin-bottom: 20px;
         }
 
-        /* Asimetría para look premium */
-        .grid-editorial {
-            display: grid;
-            grid-template-columns: repeat(12, 1fr);
-            gap: 40px;
-            align-items: center;
-        }
-
-        .product {
-            position: relative;
-            overflow: hidden;
-            cursor: pointer;
-        }
-
-        /* Posicionamiento asimétrico */
-        .product:nth-child(1) { grid-column: 1 / 7; margin-top: 50px; }
-        .product:nth-child(2) { grid-column: 8 / 13; margin-top: -100px; }
-        .product:nth-child(3) { grid-column: 3 / 11; margin-top: 150px; }
-
-        .product-img-wrap {
-            width: 100%;
-            height: 80vh;
-            overflow: hidden;
-        }
-
-        .product-img-wrap img {
-            width: 100%;
-            height: 120%; /* Extra altura para el paralaje interno */
-            object-fit: cover;
-            /* Efecto parallax interno activado por JS */
-            transform: translateY(calc(var(--img-parallax, 0) * 1px)); 
-            transition: transform 0.1s linear, filter 0.5s;
-            filter: grayscale(30%);
-        }
-
-        .product:hover img { filter: grayscale(0%); }
-
-        .product-details {
-            position: absolute;
-            bottom: 0; left: 0; width: 100%;
-            padding: 40px;
-            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
-            transform: translateY(20px);
-            opacity: 0;
-            transition: all 0.6s var(--ease);
-            display: flex; justify-content: space-between; align-items: flex-end;
-        }
-
-        .product:hover .product-details {
-            transform: translateY(0);
-            opacity: 1;
-        }
-
-        .product-details h3 { font-family: var(--font-display); font-size: 2rem; }
-        .product-details p { color: var(--gold); margin-top: 5px; font-weight: 300; }
-
-        .btn-buy {
-            background: #fff;
-            color: #000;
-            border: none;
-            padding: 15px 30px;
-            font-family: var(--font-sans);
+        .btn-lujo {
+            padding: 15px 40px;
+            background: none;
+            border: 1px solid var(--gold);
+            color: var(--gold);
             text-transform: uppercase;
-            font-size: 0.75rem;
-            letter-spacing: 1px;
-            cursor: pointer;
-            transition: transform 0.3s;
+            letter-spacing: 2px;
+            margin-top: 30px;
+            transition: 0.4s;
         }
 
-        .btn-buy:hover { transform: scale(1.05); }
-
-        /* === KEYFRAMES === */
-        @keyframes textReveal { to { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); } }
-        @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+        .btn-lujo:hover {
+            background: var(--gold);
+            color: #000;
+        }
 
         @media (max-width: 768px) {
-            .hero h1 { font-size: 10vw; }
-            .scrub-text { font-size: 6vw; }
-            .grid-editorial { display: block; }
-            .product { margin-bottom: 50px !important; }
-            .product-img-wrap { height: 60vh; }
             nav { padding: 20px; }
-            .nav-links { display: none; /* Menú hamburguesa necesario para móvil real */ }
+            .nav-menu { display: none; } /* Aquí iría un icono de menú para móvil */
+            .item { flex-direction: column !important; gap: 40px; }
+            .item-img { width: 100%; height: 400px; }
         }
     </style>
 </head>
 <body>
 
-    <nav>
+    <div id="custom-cursor"></div>
+
+    <nav id="navbar">
         <div class="logo">GLORIANCE</div>
-        <div class="nav-links">
-            <a href="#">La Casa</a>
-            <a href="#">Colección</a>
-            <a href="#">Boutiques</a>
-            <a href="#" style="color: var(--gold);">Cart (0)</a>
-        </div>
+        <ul class="nav-menu">
+            <li><a href="#">Colecciones</a></li>
+            <li><a href="#">Atelier</a></li>
+            <li><a href="#">Mundo</a></li>
+            <li><a href="#" style="color: var(--gold);">Bolsa (0)</a></li>
+        </ul>
     </nav>
 
     <section class="hero">
-        <div class="hero-img-container">
-            <img src="https://images.unsplash.com/photo-1539008835657-9e8e9680c956?q=80&w=2000&auto=format&fit=crop" alt="Hero Dress">
-        </div>
-        <div class="hero-content">
-            <h1>La Noche es Tuya</h1>
-            <p>Colección Otoño/Invierno 26</p>
-        </div>
+        <img src="https://images.unsplash.com/photo-1515377905703-c4788e51af15?q=80&w=2000&auto=format&fit=crop" class="hero-video-bg" alt="Gala">
+        <h1 class="hero-title">Elegancia<br>Eterna</h1>
     </section>
 
-    <section class="scroll-text-section" id="scroll-text">
-        <div class="sticky-container">
-            <h2 class="scrub-text">
-                Redefinimos el lujo juvenil. <br>
-                Cada hilo está tejido con propósito. <br>
-                Siluetas atrevidas, elegancia absoluta. <br>
-                Diseñado para destacar en la oscuridad.
+    <section class="reveal-section">
+        <div class="sticky-box">
+            <h2 class="reveal-text" id="scrubText">
+                Diseñamos para la mujer que no teme ser el centro del universo. Gloriance es el punto donde la juventud y la alta costura se encuentran.
             </h2>
         </div>
     </section>
 
-    <section class="collection">
-        <h2 class="section-title">Alta Costura</h2>
-        
-        <div class="grid-editorial">
-            <div class="product">
-                <div class="product-img-wrap parallax-container">
-                    <img src="https://images.unsplash.com/photo-1566160983949-c167098e7275?q=80&w=1200&auto=format&fit=crop" alt="Dress 1" class="parallax-img">
-                </div>
-                <div class="product-details">
-                    <div>
-                        <h3>Lumière Noire</h3>
-                        <p>$5,800 MXN</p>
-                    </div>
-                    <button class="btn-buy">Añadir</button>
-                </div>
+    <section class="catalog">
+        <div class="item">
+            <div class="item-img"><img src="https://images.unsplash.com/photo-1539008835657-9e8e9680c956?q=80&w=1000&auto=format&fit=crop" alt="Vestido 1"></div>
+            <div class="item-info">
+                <span>Colección 2026</span>
+                <h3>Seda de Luna</h3>
+                <p>Un vestido que captura el movimiento del agua bajo la luz nocturna.</p>
+                <button class="btn-lujo">Explorar Pieza</button>
             </div>
+        </div>
 
-            <div class="product">
-                <div class="product-img-wrap parallax-container">
-                    <img src="https://images.unsplash.com/photo-1595777457583-95e059d581b8?q=80&w=1200&auto=format&fit=crop" alt="Dress 2" class="parallax-img">
-                </div>
-                <div class="product-details">
-                    <div>
-                        <h3>Étoile Filante</h3>
-                        <p>$6,200 MXN</p>
-                    </div>
-                    <button class="btn-buy">Añadir</button>
-                </div>
-            </div>
-
-            <div class="product">
-                <div class="product-img-wrap parallax-container">
-                    <img src="https://images.unsplash.com/photo-1583391733958-d25e61c2c3cb?q=80&w=1200&auto=format&fit=crop" alt="Dress 3" class="parallax-img">
-                </div>
-                <div class="product-details">
-                    <div>
-                        <h3>Velvet Eclipse</h3>
-                        <p>$4,900 MXN</p>
-                    </div>
-                    <button class="btn-buy">Añadir</button>
-                </div>
+        <div class="item">
+            <div class="item-img"><img src="https://images.unsplash.com/photo-1595777457583-95e059d581b8?q=80&w=1000&auto=format&fit=crop" alt="Vestido 2"></div>
+            <div class="item-info">
+                <span>Edición Limitada</span>
+                <h3>Nuit d'Or</h3>
+                <p>Terciopelo francés con incrustaciones de cristal artesanal.</p>
+                <button class="btn-lujo">Explorar Pieza</button>
             </div>
         </div>
     </section>
 
     <script>
-        // === MOTOR DE SCROLL FLUIDO (VANILLA JS) ===
-        // Usamos requestAnimationFrame para máxima fluidez de cálculo
-        
-        let scrollY = window.scrollY;
-        let ticking = false;
-
-        const textSection = document.getElementById('scroll-text');
-        const parallaxImages = document.querySelectorAll('.parallax-img');
-        const parallaxContainers = document.querySelectorAll('.parallax-container');
-
-        function updateAnimations() {
-            // 1. Efecto global para el Hero (desvanece y sube al hacer scroll)
-            document.documentElement.style.setProperty('--scroll', scrollY);
-
-            // 2. Efecto Apple: Texto que se ilumina ("Scrubbing Text")
-            const rect = textSection.getBoundingClientRect();
-            // Calcular el progreso del scroll solo dentro de la sección de texto
-            let progress = 0;
-            if (rect.top <= 0 && rect.bottom >= window.innerHeight) {
-                const totalScroll = rect.height - window.innerHeight;
-                progress = Math.abs(rect.top) / totalScroll;
-            } else if (rect.bottom < window.innerHeight) {
-                progress = 1; // Ya pasamos la sección
-            }
-            
-            // Convertir el progreso a porcentaje para el CSS gradient
-            const percentage = Math.max(0, Math.min(100, progress * 100));
-            textSection.style.setProperty('--text-progress', `${percentage}%`);
-
-            // 3. Efecto Parallax en las imágenes del catálogo
-            parallaxContainers.forEach((container, index) => {
-                const img = parallaxImages[index];
-                const boxRect = container.getBoundingClientRect();
-                
-                // Si el contenedor está visible en la pantalla
-                if(boxRect.top < window.innerHeight && boxRect.bottom > 0) {
-                    // Calcular un desplazamiento relativo
-                    const move = (window.innerHeight - boxRect.top) * -0.15;
-                    img.style.setProperty('--img-parallax', move);
-                }
-            });
-
-            ticking = false;
-        }
-
-        window.addEventListener('scroll', () => {
-            scrollY = window.scrollY;
-            if (!ticking) {
-                window.requestAnimationFrame(updateAnimations);
-                ticking = true;
-            }
+        // --- CURSOR LÓGICA ---
+        const cursor = document.getElementById('custom-cursor');
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
         });
 
-        // Llamada inicial para establecer el estado correcto al cargar
-        updateAnimations();
+        document.querySelectorAll('a, button, .item-img').forEach(el => {
+            el.addEventListener('mouseenter', () => cursor.style.transform = 'scale(4)');
+            el.addEventListener('mouseleave', () => cursor.style.transform = 'scale(1)');
+        });
+
+        // --- SCROLL LÓGICA (APPLE TEXT REVEAL) ---
+        const scrubText = document.getElementById('scrubText');
+        const navbar = document.getElementById('navbar');
+
+        window.addEventListener('scroll', () => {
+            // Navbar cambio de estilo
+            if (window.scrollY > 50) navbar.classList.add('scrolled');
+            else navbar.classList.remove('scrolled');
+
+            // Efecto de revelación de texto
+            const section = document.querySelector('.reveal-section');
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.offsetHeight - window.innerHeight;
+            const scrollPos = window.scrollY - sectionTop;
+            
+            if (scrollPos >= 0 && scrollPos <= sectionHeight) {
+                const progress = (scrollPos / sectionHeight) * 100;
+                scrubText.style.backgroundSize = `${progress}% 100%`;
+                scrubText.style.backgroundImage = `linear-gradient(to right, #fff ${progress}%, #222 ${progress}%)`;
+            }
+        });
     </script>
 </body>
 </html>
