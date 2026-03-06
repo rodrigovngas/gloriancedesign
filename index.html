@@ -3,383 +3,382 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gloriance Design | Lujo y Elegancia</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    <title>Gloriance Design | Alta Costura</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
     
     <style>
-        /* === RESET & VARIABLES === */
+        /* === VARIABLES & RESET === */
         :root {
-            --bg-color: #050505;
-            --text-color: #f5f5f7;
-            --accent-color: #d4af37; /* Dorado sutil */
-            --font-heading: 'Playfair Display', serif;
-            --font-body: 'Montserrat', sans-serif;
-            --apple-ease: cubic-bezier(0.16, 1, 0.3, 1);
+            --bg: #000000;
+            --text: #F5F5F7;
+            --text-muted: #424245;
+            --gold: #D4AF37;
+            --font-display: 'Cinzel', serif;
+            --font-sans: 'Inter', sans-serif;
+            --ease: cubic-bezier(0.25, 1, 0.5, 1);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
         body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            font-family: var(--font-body);
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: var(--font-sans);
             overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
+            overscroll-behavior: none;
         }
 
-        /* === NAVBAR === */
+        /* === CUSTOM SCROLLBAR === */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg); }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+
+        /* === NAVBAR BLUR === */
         nav {
             position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 20px 50px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            top: 0; width: 100%;
+            padding: 24px 48px;
+            display: flex; justify-content: space-between; align-items: center;
             z-index: 100;
-            background: rgba(5, 5, 5, 0.8);
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
         }
 
-        .logo {
-            font-family: var(--font-heading);
-            font-size: 1.5rem;
+        .logo { font-family: var(--font-display); font-size: 1.5rem; letter-spacing: 3px; }
+        
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            margin-left: 40px;
+            font-size: 0.75rem;
             letter-spacing: 2px;
             text-transform: uppercase;
-            cursor: pointer;
+            transition: color 0.3s;
         }
+        .nav-links a:hover { color: var(--gold); }
 
-        .nav-links a {
-            color: var(--text-color);
-            text-decoration: none;
-            margin-left: 30px;
-            font-size: 0.85rem;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            transition: color 0.3s ease;
-        }
-
-        .nav-links a:hover {
-            color: var(--accent-color);
-        }
-
-        /* === HERO SECTION === */
+        /* === DYNAMIC HERO === */
         .hero {
+            position: relative;
             height: 100vh;
             display: flex;
-            flex-direction: column;
-            justify-content: center;
             align-items: center;
-            text-align: center;
-            position: relative;
+            justify-content: center;
             overflow: hidden;
         }
 
-        .hero-bg {
+        /* La imagen reaccionará al scroll gracias al JS */
+        .hero-img-container {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            /* Imagen de fondo premium (placeholder) */
-            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1566160983949-c167098e7275?q=80&w=2000&auto=format&fit=crop') center/cover;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             z-index: -1;
-            transform: scale(1.1);
-            animation: slowZoom 20s infinite alternate linear;
+            /* Se actualizará con variables CSS dinámicas */
+            transform: translateY(calc(var(--scroll) * 0.4px)); 
+            opacity: calc(1 - (var(--scroll) * 0.0015));
         }
 
-        @keyframes slowZoom {
-            from { transform: scale(1.1); }
-            to { transform: scale(1.15); }
+        .hero-img-container img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            transform: scale(1.05);
+            filter: brightness(0.6);
+        }
+
+        .hero-content {
+            text-align: center;
+            transform: translateY(calc(var(--scroll) * -0.2px));
         }
 
         .hero h1 {
-            font-family: var(--font-heading);
-            font-size: 5rem;
+            font-family: var(--font-display);
+            font-size: 6vw;
             font-weight: 400;
-            margin-bottom: 20px;
-            letter-spacing: 2px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0% 100%);
+            animation: textReveal 1.5s var(--ease) forwards 0.2s;
         }
 
         .hero p {
-            font-size: 1.2rem;
-            font-weight: 300;
-            letter-spacing: 3px;
+            margin-top: 20px;
+            font-size: 1rem;
+            letter-spacing: 4px;
             text-transform: uppercase;
-            max-width: 600px;
-        }
-
-        /* === SCROLL ANIMATIONS (CLASES UTÍLITARIAS) === */
-        .reveal {
+            color: #aaa;
             opacity: 0;
-            transform: translateY(60px);
-            transition: opacity 1.2s var(--apple-ease), transform 1.2s var(--apple-ease);
+            transform: translateY(20px);
+            animation: fadeUp 1s var(--ease) forwards 1s;
         }
 
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* === SECCIÓN DE TEXTO (ESTILO APPLE) === */
-        .statement {
-            padding: 150px 20px;
-            text-align: center;
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        .statement h2 {
-            font-family: var(--font-heading);
-            font-size: 3rem;
-            font-weight: 400;
-            line-height: 1.4;
-            color: #888; /* Texto apagado inicialmente */
-            transition: color 1s ease;
-        }
-
-        .statement.active h2 {
-            color: var(--text-color); /* Se ilumina al hacer scroll */
-        }
-
-        .highlight {
-            color: var(--accent-color);
-            font-style: italic;
-        }
-
-        /* === CATÁLOGO E-COMMERCE === */
-        .catalog {
-            padding: 100px 50px;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .catalog-header {
-            text-align: center;
-            margin-bottom: 80px;
-        }
-
-        .catalog-header h2 {
-            font-family: var(--font-heading);
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-        }
-
-        .product-card {
+        /* === APPLE-STYLE SCROLL TEXT === */
+        /* Esta sección usa 'sticky' para quedarse quieta mientras el texto se ilumina */
+        .scroll-text-section {
+            height: 300vh; /* Da espacio para hacer scroll */
             position: relative;
-            cursor: pointer;
-            overflow: hidden;
-            border-radius: 4px;
-            background: #111;
+            background: var(--bg);
         }
 
-        .product-image {
-            width: 100%;
-            height: 600px;
-            object-fit: cover;
-            transition: transform 0.8s var(--apple-ease), opacity 0.5s;
-            opacity: 0.9;
-        }
-
-        .product-card:hover .product-image {
-            transform: scale(1.05);
-            opacity: 1;
-        }
-
-        .product-info {
-            position: absolute;
-            bottom: -80px; /* Escondido por defecto */
-            left: 0;
-            width: 100%;
-            padding: 20px;
-            background: linear-gradient(transparent, rgba(0,0,0,0.9));
-            transition: bottom 0.5s var(--apple-ease);
+        .sticky-container {
+            position: sticky;
+            top: 0;
+            height: 100vh;
             display: flex;
-            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 0 10%;
+        }
+
+        .scrub-text {
+            font-family: var(--font-display);
+            font-size: 4vw;
+            line-height: 1.3;
+            text-align: center;
+            color: var(--text-muted);
+            /* El gradiente se revelará con el scroll */
+            background: linear-gradient(to right, #FFF var(--text-progress), var(--text-muted) var(--text-progress));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* === EDITORIAL E-COMMERCE GRID === */
+        .collection {
+            padding: 150px 5%;
+            background: var(--bg);
+            position: relative;
+            z-index: 2;
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: 3rem;
+            margin-bottom: 100px;
+            text-align: center;
+        }
+
+        /* Asimetría para look premium */
+        .grid-editorial {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 40px;
             align-items: center;
         }
 
-        .product-card:hover .product-info {
-            bottom: 0;
+        .product {
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
         }
 
-        .product-title {
-            font-family: var(--font-heading);
-            font-size: 1.5rem;
-            margin-bottom: 5px;
+        /* Posicionamiento asimétrico */
+        .product:nth-child(1) { grid-column: 1 / 7; margin-top: 50px; }
+        .product:nth-child(2) { grid-column: 8 / 13; margin-top: -100px; }
+        .product:nth-child(3) { grid-column: 3 / 11; margin-top: 150px; }
+
+        .product-img-wrap {
+            width: 100%;
+            height: 80vh;
+            overflow: hidden;
         }
 
-        .product-price {
-            font-size: 1rem;
-            font-weight: 300;
-            margin-bottom: 15px;
-            color: var(--accent-color);
+        .product-img-wrap img {
+            width: 100%;
+            height: 120%; /* Extra altura para el paralaje interno */
+            object-fit: cover;
+            /* Efecto parallax interno activado por JS */
+            transform: translateY(calc(var(--img-parallax, 0) * 1px)); 
+            transition: transform 0.1s linear, filter 0.5s;
+            filter: grayscale(30%);
         }
 
-        .btn-add {
-            background: transparent;
-            color: var(--text-color);
-            border: 1px solid var(--text-color);
-            padding: 10px 25px;
-            font-family: var(--font-body);
-            font-size: 0.8rem;
+        .product:hover img { filter: grayscale(0%); }
+
+        .product-details {
+            position: absolute;
+            bottom: 0; left: 0; width: 100%;
+            padding: 40px;
+            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 0.6s var(--ease);
+            display: flex; justify-content: space-between; align-items: flex-end;
+        }
+
+        .product:hover .product-details {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .product-details h3 { font-family: var(--font-display); font-size: 2rem; }
+        .product-details p { color: var(--gold); margin-top: 5px; font-weight: 300; }
+
+        .btn-buy {
+            background: #fff;
+            color: #000;
+            border: none;
+            padding: 15px 30px;
+            font-family: var(--font-sans);
             text-transform: uppercase;
+            font-size: 0.75rem;
             letter-spacing: 1px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: transform 0.3s;
         }
 
-        .btn-add:hover {
-            background: var(--text-color);
-            color: var(--bg-color);
-        }
+        .btn-buy:hover { transform: scale(1.05); }
 
-        /* === FOOTER === */
-        footer {
-            text-align: center;
-            padding: 60px 20px;
-            border-top: 1px solid #222;
-            font-size: 0.8rem;
-            color: #666;
-            margin-top: 100px;
-        }
+        /* === KEYFRAMES === */
+        @keyframes textReveal { to { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); } }
+        @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
 
-        /* === RESPONSIVE === */
         @media (max-width: 768px) {
-            .hero h1 { font-size: 3rem; }
-            .statement h2 { font-size: 2rem; }
-            nav { padding: 20px; flex-direction: column; gap: 15px; }
-            .nav-links a { margin: 0 10px; }
-            .product-image { height: 450px; }
+            .hero h1 { font-size: 10vw; }
+            .scrub-text { font-size: 6vw; }
+            .grid-editorial { display: block; }
+            .product { margin-bottom: 50px !important; }
+            .product-img-wrap { height: 60vh; }
+            nav { padding: 20px; }
+            .nav-links { display: none; /* Menú hamburguesa necesario para móvil real */ }
         }
     </style>
 </head>
 <body>
 
     <nav>
-        <div class="logo">Gloriance</div>
+        <div class="logo">GLORIANCE</div>
         <div class="nav-links">
-            <a href="#hero">Inicio</a>
-            <a href="#statement">Filosofía</a>
-            <a href="#catalog">Colección</a>
-            <a href="#" id="cart-btn">Carrito (0)</a>
+            <a href="#">La Casa</a>
+            <a href="#">Colección</a>
+            <a href="#">Boutiques</a>
+            <a href="#" style="color: var(--gold);">Cart (0)</a>
         </div>
     </nav>
 
-    <section class="hero" id="hero">
-        <div class="hero-bg"></div>
-        <h1 class="reveal delay-1">Gloriance Design</h1>
-        <p class="reveal delay-2">Elegancia nocturna para la juventud de hoy</p>
-    </section>
-
-    <section class="statement reveal" id="statement">
-        <h2>No diseñamos simples vestidos. <br> Esculpimos <span class="highlight">confianza</span>, capturamos la luz de la noche y redefinimos el glamour para una nueva generación.</h2>
-    </section>
-
-    <section class="catalog" id="catalog">
-        <div class="catalog-header reveal">
-            <h2>Colección Gala</h2>
-            <p style="color: #888; font-weight: 300; letter-spacing: 1px;">Edición Limitada 2026</p>
+    <section class="hero">
+        <div class="hero-img-container">
+            <img src="https://images.unsplash.com/photo-1539008835657-9e8e9680c956?q=80&w=2000&auto=format&fit=crop" alt="Hero Dress">
         </div>
-
-        <div class="grid">
-            <div class="product-card reveal">
-                <img src="https://images.unsplash.com/photo-1595777457583-95e059d581b8?q=80&w=800&auto=format&fit=crop" alt="Vestido Midnight Noir" class="product-image">
-                <div class="product-info">
-                    <h3 class="product-title">Midnight Noir</h3>
-                    <span class="product-price">$4,500 MXN</span>
-                    <button class="btn-add" onclick="addToCart('Midnight Noir')">Añadir al carrito</button>
-                </div>
-            </div>
-
-            <div class="product-card reveal" style="transition-delay: 0.2s;">
-                <img src="https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?q=80&w=800&auto=format&fit=crop" alt="Vestido Aurora Seda" class="product-image">
-                <div class="product-info">
-                    <h3 class="product-title">Aurora Seda</h3>
-                    <span class="product-price">$5,200 MXN</span>
-                    <button class="btn-add" onclick="addToCart('Aurora Seda')">Añadir al carrito</button>
-                </div>
-            </div>
-
-            <div class="product-card reveal" style="transition-delay: 0.4s;">
-                <img src="https://images.unsplash.com/photo-1566160983949-c167098e7275?q=80&w=800&auto=format&fit=crop" alt="Vestido Eclipse" class="product-image">
-                <div class="product-info">
-                    <h3 class="product-title">Eclipse Velvet</h3>
-                    <span class="product-price">$3,800 MXN</span>
-                    <button class="btn-add" onclick="addToCart('Eclipse Velvet')">Añadir al carrito</button>
-                </div>
-            </div>
+        <div class="hero-content">
+            <h1>La Noche es Tuya</h1>
+            <p>Colección Otoño/Invierno 26</p>
         </div>
     </section>
 
-    <footer>
-        <p>&copy; 2026 Gloriance Design. Todos los derechos reservados.</p>
-    </footer>
+    <section class="scroll-text-section" id="scroll-text">
+        <div class="sticky-container">
+            <h2 class="scrub-text">
+                Redefinimos el lujo juvenil. <br>
+                Cada hilo está tejido con propósito. <br>
+                Siluetas atrevidas, elegancia absoluta. <br>
+                Diseñado para destacar en la oscuridad.
+            </h2>
+        </div>
+    </section>
+
+    <section class="collection">
+        <h2 class="section-title">Alta Costura</h2>
+        
+        <div class="grid-editorial">
+            <div class="product">
+                <div class="product-img-wrap parallax-container">
+                    <img src="https://images.unsplash.com/photo-1566160983949-c167098e7275?q=80&w=1200&auto=format&fit=crop" alt="Dress 1" class="parallax-img">
+                </div>
+                <div class="product-details">
+                    <div>
+                        <h3>Lumière Noire</h3>
+                        <p>$5,800 MXN</p>
+                    </div>
+                    <button class="btn-buy">Añadir</button>
+                </div>
+            </div>
+
+            <div class="product">
+                <div class="product-img-wrap parallax-container">
+                    <img src="https://images.unsplash.com/photo-1595777457583-95e059d581b8?q=80&w=1200&auto=format&fit=crop" alt="Dress 2" class="parallax-img">
+                </div>
+                <div class="product-details">
+                    <div>
+                        <h3>Étoile Filante</h3>
+                        <p>$6,200 MXN</p>
+                    </div>
+                    <button class="btn-buy">Añadir</button>
+                </div>
+            </div>
+
+            <div class="product">
+                <div class="product-img-wrap parallax-container">
+                    <img src="https://images.unsplash.com/photo-1583391733958-d25e61c2c3cb?q=80&w=1200&auto=format&fit=crop" alt="Dress 3" class="parallax-img">
+                </div>
+                <div class="product-details">
+                    <div>
+                        <h3>Velvet Eclipse</h3>
+                        <p>$4,900 MXN</p>
+                    </div>
+                    <button class="btn-buy">Añadir</button>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <script>
-        // Lógica para el efecto "Scroll-Driven Animations"
-        // Utilizamos IntersectionObserver para detectar cuando los elementos entran en pantalla
+        // === MOTOR DE SCROLL FLUIDO (VANILLA JS) ===
+        // Usamos requestAnimationFrame para máxima fluidez de cálculo
         
-        document.addEventListener("DOMContentLoaded", () => {
-            const reveals = document.querySelectorAll(".reveal");
+        let scrollY = window.scrollY;
+        let ticking = false;
 
-            const revealOptions = {
-                threshold: 0.15, // Se activa cuando el 15% del elemento es visible
-                rootMargin: "0px 0px -50px 0px" 
-            };
+        const textSection = document.getElementById('scroll-text');
+        const parallaxImages = document.querySelectorAll('.parallax-img');
+        const parallaxContainers = document.querySelectorAll('.parallax-container');
 
-            const revealOnScroll = new IntersectionObserver(function(entries, observer) {
-                entries.forEach(entry => {
-                    if (!entry.isIntersecting) {
-                        return;
-                    } else {
-                        entry.target.classList.add("active");
-                        // Opcional: Descomenta la línea de abajo si quieres que la animación se ejecute solo una vez
-                        // observer.unobserve(entry.target);
-                    }
-                });
-            }, revealOptions);
+        function updateAnimations() {
+            // 1. Efecto global para el Hero (desvanece y sube al hacer scroll)
+            document.documentElement.style.setProperty('--scroll', scrollY);
 
-            reveals.forEach(reveal => {
-                revealOnScroll.observe(reveal);
+            // 2. Efecto Apple: Texto que se ilumina ("Scrubbing Text")
+            const rect = textSection.getBoundingClientRect();
+            // Calcular el progreso del scroll solo dentro de la sección de texto
+            let progress = 0;
+            if (rect.top <= 0 && rect.bottom >= window.innerHeight) {
+                const totalScroll = rect.height - window.innerHeight;
+                progress = Math.abs(rect.top) / totalScroll;
+            } else if (rect.bottom < window.innerHeight) {
+                progress = 1; // Ya pasamos la sección
+            }
+            
+            // Convertir el progreso a porcentaje para el CSS gradient
+            const percentage = Math.max(0, Math.min(100, progress * 100));
+            textSection.style.setProperty('--text-progress', `${percentage}%`);
+
+            // 3. Efecto Parallax en las imágenes del catálogo
+            parallaxContainers.forEach((container, index) => {
+                const img = parallaxImages[index];
+                const boxRect = container.getBoundingClientRect();
+                
+                // Si el contenedor está visible en la pantalla
+                if(boxRect.top < window.innerHeight && boxRect.bottom > 0) {
+                    // Calcular un desplazamiento relativo
+                    const move = (window.innerHeight - boxRect.top) * -0.15;
+                    img.style.setProperty('--img-parallax', move);
+                }
             });
 
-            // Animación inmediata para el Hero section al cargar la página
-            setTimeout(() => {
-                document.querySelectorAll('#hero .reveal').forEach(el => el.classList.add('active'));
-            }, 100);
+            ticking = false;
+        }
+
+        window.addEventListener('scroll', () => {
+            scrollY = window.scrollY;
+            if (!ticking) {
+                window.requestAnimationFrame(updateAnimations);
+                ticking = true;
+            }
         });
 
-        // Lógica básica simulada para el carrito (E-commerce ready)
-        let cartCount = 0;
-        function addToCart(productName) {
-            cartCount++;
-            document.getElementById('cart-btn').innerText = `Carrito (${cartCount})`;
-            
-            // Efecto visual en el botón
-            const btn = event.target;
-            const originalText = btn.innerText;
-            btn.innerText = "¡Añadido!";
-            btn.style.background = "var(--text-color)";
-            btn.style.color = "var(--bg-color)";
-            
-            setTimeout(() => {
-                btn.innerText = originalText;
-                btn.style.background = "transparent";
-                btn.style.color = "var(--text-color)";
-            }, 2000);
-        }
+        // Llamada inicial para establecer el estado correcto al cargar
+        updateAnimations();
     </script>
 </body>
 </html>
