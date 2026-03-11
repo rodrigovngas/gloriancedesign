@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gloriance Design | Alta Costura Nocturna</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* =========================================
+           VARIABLES Y ESTILOS BASE
+           ========================================= */
+        :root {
+            --bg-color: #0a0a0a;
+            --text-light: #f5f5f5;
+            --accent-gold: #d4af37;
+            --font-heading: 'Playfair Display', serif;
+            --font-body: 'Lato', sans-serif;
+            --transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-light);
+            font-family: var(--font-body);
+            overflow-x: hidden;
+        }
+
+        /* =========================================
+           NAVEGACIÓN
+           ========================================= */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 5%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        .logo {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            letter-spacing: 3px;
+            color: var(--accent-gold);
+            text-transform: uppercase;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-gold);
+        }
+
+        .cart-icon-container {
+            position: relative;
+            cursor: pointer;
+            font-size: 1.3rem;
+            transition: transform 0.3s ease;
+        }
+
+        .cart-icon-container:hover {
+            transform: scale(1.1);
+        }
+
+        #cart-count {
+            position: absolute;
+            top: -8px;
+            right: -10px;
+            background: var(--accent-gold);
+            color: #000;
+            font-size: 0.7rem;
+            font-weight: bold;
+            padding: 2px 6px;
+            border-radius: 50%;
+        }
+
+        /* =========================================
+           HERO SECTION
+           ========================================= */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.8)), 
+                        url('https://images.unsplash.com/photo-1539008835657-9e8e9680c956?q=80&w=1920&auto=format&fit=crop') center/cover;
+        }
+
+        .hero-content h1 {
+            font-family: var(--font-heading);
+            font-size: clamp(3rem, 8vw, 5rem);
+            margin-bottom: 20px;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+        }
+
+        .hero-content p {
+            font-size: 1.1rem;
+            margin-bottom: 40px;
+            letter-spacing: 1px;
+            color: #ccc;
+        }
+
+        .btn-gold {
+            padding: 15px 45px;
+            background: transparent;
+            color: var(--accent-gold);
+            border: 1px solid var(--accent-gold);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .btn-gold:hover {
+            background: var(--accent-gold);
+            color: #000;
+        }
+
+        /* =========================================
+           PRODUCTOS / TIENDA
+           ========================================= */
+        .shop-section {
+            padding: 100px 5%;
+        }
+
+        .section-title {
+            font-family: var(--font-heading);
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 60px;
+            color: var(--accent-gold);
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 50px;
+        }
+
+        .product-card {
+            background: #111;
+            overflow: hidden;
+            transition: var(--transition);
+            border: 1px solid transparent;
+        }
+
+        .product-card:hover {
+            border-color: rgba(212, 175, 55, 0.3);
+            transform: translateY(-10px);
+        }
+
+        .img-container {
+            width: 100%;
+            height: 500px;
+            overflow: hidden;
+        }
+
+        .img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 1s ease;
+        }
+
+        .product-card:hover .img-container img {
+            transform: scale(1.1);
+        }
+
+        .product-info {
+            padding: 30px;
+            text-align: center;
+        }
+
+        .product-info h3 {
+            font-family: var(--font-heading);
+            font-size: 1.6rem;
+            margin-bottom: 10px;
+        }
+
+        .price {
+            color: var(--accent-gold);
+            margin-bottom: 25px;
+            font-weight: 400;
+            font-size: 1.2rem;
+        }
+
+        .add-to-cart {
+            width: 100%;
+            padding: 14px;
+            background: #1a1a1a;
+            color: #fff;
+            border: 1px solid #333;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: var(--transition);
+        }
+
+        .add-to-cart:hover {
+            background: var(--accent-gold);
+            color: #000;
+            border-color: var(--accent-gold);
+        }
+
+        /* =========================================
+           CARRITO LATERAL (OFF-CANVAS)
+           ========================================= */
+        .cart-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 2000;
+            visibility: hidden;
+            opacity: 0;
+            transition: 0.4s;
+            backdrop-filter: blur(5px);
+        }
+
+        .cart-overlay.active {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .cart-panel {
+            position: fixed;
+            top: 0; right: -450px;
+            width: 400px; max-width: 100%; height: 100vh;
+            background: #0f0f0f;
+            z-index: 2001;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            transition: 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+            box-shadow: -10px 0 30px rgba(0,0,0,0.5);
+        }
+
+        .cart-panel.active { right: 0; }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            border-bottom: 1px solid #222;
+            padding-bottom: 20px;
+        }
+
+        .close-cart {
+            background: none; border: none; color: #fff;
+            font-size: 1.5rem; cursor: pointer;
+        }
+
+        .cart-items-container {
+            flex-grow: 1;
+            overflow-y: auto;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #1a1a1a;
+        }
+
+        .cart-footer {
+            padding-top: 30px;
+        }
+
+        .total-box {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            font-family: var(--font-heading);
+        }
+
+        .checkout-btn {
+            width: 100%;
+            padding: 18px;
+            background: var(--accent-gold);
+            color: #000;
+            border: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            transition: 0.3s;
+        }
+
+        /* =========================================
+           ANIMACIONES DE SCROLL
+           ========================================= */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        footer {
+            padding: 60px 5%;
+            text-align: center;
+            background: #050505;
+            border-top: 1px solid #111;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hero-content h1 { font-size: 2.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">Gloriance</div>
+        <ul class="nav-links">
+            <li><a href="#inicio">Colección</a></li>
+            <li><a href="#inicio">Diseños</a></li>
+            <li><a href="#inicio">Atelier</a></li>
+        </ul>
+        <div class="cart-icon-container" id="open-cart">
+            <i class="fas fa-shopping-bag"></i>
+            <span id="cart-count">0</span>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-content fade-in">
+            <h1>Elegancia Eterna</h1>
+            <p>Vestidos de gala diseñados para noches inolvidables.</p>
+            <a href="#productos" class="btn-gold">Explorar Selección</a>
+        </div>
+    </header>
+
+    <section id="productos" class="shop-section">
+        <h2 class="section-title fade-in">Nuestra Colección</h2>
+        
+        <div class="product-grid">
+            <div class="product-card fade-in">
+                <div class="img-container">
+                    <img src="https://images.unsplash.com/photo-1566162963464-3286f9014197?q=80&w=800" alt="Vestido Gala 1">
+                </div>
+                <div class="product-info">
+                    <h3>Seda Medianoche</h3>
+                    <p class="price">$1,400 USD</p>
+                    <button class="add-to-cart" data-name="Seda Medianoche" data-price="1400">Añadir a la bolsa</button>
+                </div>
+            </div>
+
+            <div class="product-card fade-in" style="transition-delay: 0.2s;">
+                <div class="img-container">
+                    <img src="https://images.unsplash.com/photo-1595777457583-95e059d581b8?q=80&w=800" alt="Vestido Gala 2">
+                </div>
+                <div class="product-info">
+                    <h3>Terciopelo Noir</h3>
+                    <p class="price">$1,850 USD</p>
+                    <button class="add-to-cart" data-name="Terciopelo Noir" data-price="1850">Añadir a la bolsa</button>
+                </div>
+            </div>
+
+            <div class="product-card fade-in" style="transition-delay: 0.4s;">
+                <div class="img-container">
+                    <img src="https://images.unsplash.com/photo-1572804013309-82a89b47afc2?q=80&w=800" alt="Vestido Gala 3">
+                </div>
+                <div class="product-info">
+                    <h3>Brillo Astral</h3>
+                    <p class="price">$2,100 USD</p>
+                    <button class="add-to-cart" data-name="Brillo Astral" data-price="2100">Añadir a la bolsa</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="cart-overlay" id="overlay"></div>
+    <aside class="cart-panel" id="panel">
+        <div class="cart-header">
+            <h2>Tu Selección</h2>
+            <button class="close-cart" id="close-btn"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="cart-items-container" id="cart-items">
+            </div>
+        <div class="cart-footer">
+            <div class="total-box">
+                <span>Total</span>
+                <span id="total-amount">$0 USD</span>
+            </div>
+            <button class="checkout-btn">Finalizar Compra <i class="fas fa-lock" style="margin-left:10px; font-size:0.8rem;"></i></button>
+        </div>
+    </aside>
+
+    <footer>
+        <p class="logo" style="font-size: 1.2rem; margin-bottom: 20px;">Gloriance Design</p>
+        <p style="color: #666; font-size: 0.8rem; letter-spacing: 1px;">© 2026 Alta Costura Internacional. Confección de lujo.</p>
+    </footer>
+
+    <script>
+        // 1. LÓGICA DEL CARRITO
+        const cart = [];
+        const openCartBtn = document.getElementById('open-cart');
+        const closeCartBtn = document.getElementById('close-btn');
+        const panel = document.getElementById('panel');
+        const overlay = document.getElementById('overlay');
+        const cartContainer = document.getElementById('cart-items');
+        const totalDisplay = document.getElementById('total-amount');
+        const countDisplay = document.getElementById('cart-count');
+
+        function toggleCart() {
+            panel.classList.toggle('active');
+            overlay.classList.toggle('active');
+        }
+
+        openCartBtn.onclick = toggleCart;
+        closeCartBtn.onclick = toggleCart;
+        overlay.onclick = toggleCart;
+
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.onclick = (e) => {
+                const name = e.target.getAttribute('data-name');
+                const price = parseInt(e.target.getAttribute('data-price'));
+                
+                cart.push({ name, price });
+                updateUI();
+                if(!panel.classList.contains('active')) toggleCart();
+            };
+        });
+
+        function updateUI() {
+            cartContainer.innerHTML = '';
+            let total = 0;
+            
+            cart.forEach((item, index) => {
+                total += item.price;
+                const div = document.createElement('div');
+                div.className = 'cart-item';
+                div.innerHTML = `
+                    <div>
+                        <p style="font-weight:bold">${item.name}</p>
+                        <p style="color:#d4af37">$${item.price} USD</p>
+                    </div>
+                    <i class="fas fa-trash" style="cursor:pointer; color:#444" onclick="removeItem(${index})"></i>
+                `;
+                cartContainer.appendChild(div);
+            });
+
+            totalDisplay.innerText = `$${total} USD`;
+            countDisplay.innerText = cart.length;
+        }
+
+        window.removeItem = (index) => {
+            cart.splice(index, 1);
+            updateUI();
+        };
+
+        // 2. ANIMACIÓN DE APARICIÓN (SCROLL)
+        const observerOptions = { threshold: 0.2 };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
