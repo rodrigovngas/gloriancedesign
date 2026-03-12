@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -34,14 +33,24 @@
 
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-    html { scroll-behavior: smooth; }
+    /* CORRECCIÓN: Prevención de desbordamiento horizontal */
+    html, body { 
+        scroll-behavior: smooth; 
+        width: 100%;
+        overflow-x: hidden;
+        position: relative;
+    }
 
     body {
         background: var(--bg);
         color: var(--white);
         font-family: var(--micro);
-        overflow-x: hidden;
         cursor: none;
+    }
+
+    /* CORRECCIÓN: Clipping de animaciones laterales */
+    header, section, footer {
+        overflow: hidden;
     }
 
     /* =========================================
@@ -264,6 +273,8 @@
             url('https://images.unsplash.com/photo-1539008835657-9e8e9680c956?q=80&w=1920&auto=format&fit=crop') center/cover;
         transform: scale(1.05);
         animation: heroZoom 18s ease-in-out infinite alternate;
+        width: 100%;
+        left: 0;
     }
 
     @keyframes heroZoom {
@@ -392,7 +403,6 @@
 
     .btn-ghost:hover .btn-ghost-arrow { width: 50px; }
 
-    /* Hero scroll indicator */
     .scroll-indicator {
         position: absolute;
         bottom: 40px;
@@ -543,8 +553,6 @@
         pointer-events: none;
     }
 
-    .esencia-text {}
-
     .section-label {
         font-family: var(--micro);
         font-size: 0.55rem;
@@ -618,8 +626,6 @@
         margin-bottom: 70px;
     }
 
-    .section-title-group {}
-
     .section-title {
         font-family: var(--serif);
         font-size: clamp(2.5rem, 5vw, 4.5rem);
@@ -666,11 +672,6 @@
         overflow: hidden;
         background: var(--bg-3);
         cursor: none;
-        group: true;
-    }
-
-    .product-card:first-child {
-        grid-row: span 1;
     }
 
     .product-img-wrap {
@@ -897,8 +898,6 @@
         outline: none;
     }
 
-    .newsletter-form input::placeholder { color: var(--muted); }
-
     .newsletter-form button {
         padding: 18px 28px;
         background: var(--gold);
@@ -987,10 +986,6 @@
         padding: 28px 36px;
     }
 
-    .cart-items-wrapper::-webkit-scrollbar { width: 2px; }
-    .cart-items-wrapper::-webkit-scrollbar-track { background: transparent; }
-    .cart-items-wrapper::-webkit-scrollbar-thumb { background: var(--gold); }
-
     .cart-item {
         display: flex;
         justify-content: space-between;
@@ -999,54 +994,9 @@
         border-bottom: 1px solid var(--border);
     }
 
-    .cart-item-name {
-        font-family: var(--serif);
-        font-size: 1rem;
-        margin-bottom: 4px;
-    }
-
-    .cart-item-price {
-        font-family: var(--serif);
-        font-style: italic;
-        color: var(--gold);
-        font-size: 0.9rem;
-    }
-
-    .cart-item-remove {
-        color: var(--muted);
-        cursor: none;
-        font-size: 0.75rem;
-        transition: color 0.3s;
-        background: none;
-        border: none;
-    }
-
-    .cart-item-remove:hover { color: var(--white); }
-
     .cart-footer {
         padding: 28px 36px;
         border-top: 1px solid var(--border);
-    }
-
-    .cart-total-row {
-        display: flex;
-        justify-content: space-between;
-        align-items: baseline;
-        margin-bottom: 24px;
-    }
-
-    .cart-total-label {
-        font-family: var(--micro);
-        font-size: 0.6rem;
-        letter-spacing: 3px;
-        text-transform: uppercase;
-        color: var(--muted);
-    }
-
-    .cart-total-amount {
-        font-family: var(--serif);
-        font-size: 1.8rem;
-        color: var(--gold);
     }
 
     .checkout-btn {
@@ -1067,68 +1017,6 @@
         gap: 12px;
     }
 
-    .checkout-btn:hover { background: var(--gold-pale); }
-
-    .cart-empty {
-        padding: 60px 0;
-        text-align: center;
-    }
-
-    .cart-empty i {
-        font-size: 2.5rem;
-        color: var(--border);
-        display: block;
-        margin-bottom: 20px;
-    }
-
-    .cart-empty p {
-        font-family: var(--serif);
-        font-style: italic;
-        color: var(--muted);
-    }
-
-    /* =========================================
-       MENU MOBILE
-       ========================================= */
-    .mobile-panel {
-        position: fixed;
-        top: 0;
-        left: -100%;
-        width: 320px;
-        max-width: 90%;
-        height: 100vh;
-        background: var(--bg-2);
-        z-index: 2001;
-        padding: 0;
-        display: flex;
-        flex-direction: column;
-        transition: left 0.7s var(--ease-out);
-        border-right: 1px solid var(--border);
-    }
-
-    .mobile-panel.active { left: 0; }
-
-    .mobile-nav { padding: 0 36px; flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 8px; }
-
-    .mobile-nav a {
-        display: block;
-        font-family: var(--serif);
-        font-size: 2.2rem;
-        font-weight: 300;
-        color: var(--muted);
-        text-decoration: none;
-        padding: 12px 0;
-        border-bottom: 1px solid var(--border);
-        transition: color 0.3s;
-    }
-
-    .mobile-nav a:hover { color: var(--gold); }
-
-    .mobile-footer {
-        padding: 36px;
-        border-top: 1px solid var(--border);
-    }
-
     /* =========================================
        FOOTER
        ========================================= */
@@ -1145,46 +1033,6 @@
         margin-bottom: 60px;
     }
 
-    .footer-brand .logo {
-        font-size: 1.5rem;
-        letter-spacing: 8px;
-        display: inline-block;
-        margin-bottom: 20px;
-    }
-
-    .footer-brand p {
-        font-family: var(--serif);
-        font-style: italic;
-        color: var(--muted);
-        line-height: 1.8;
-        font-size: 0.95rem;
-    }
-
-    .footer-col h4 {
-        font-family: var(--micro);
-        font-size: 0.55rem;
-        letter-spacing: 4px;
-        text-transform: uppercase;
-        color: var(--gold);
-        margin-bottom: 24px;
-    }
-
-    .footer-col ul { list-style: none; }
-
-    .footer-col ul li {
-        margin-bottom: 12px;
-    }
-
-    .footer-col ul li a {
-        font-family: var(--serif);
-        color: var(--muted);
-        text-decoration: none;
-        font-size: 0.95rem;
-        transition: color 0.3s;
-    }
-
-    .footer-col ul li a:hover { color: var(--white); }
-
     .footer-bottom {
         padding-top: 28px;
         border-top: 1px solid var(--border);
@@ -1192,25 +1040,6 @@
         justify-content: space-between;
         align-items: center;
     }
-
-    .footer-bottom p {
-        font-family: var(--micro);
-        font-size: 0.55rem;
-        letter-spacing: 2px;
-        color: var(--muted);
-        text-transform: uppercase;
-    }
-
-    .social-links { display: flex; gap: 20px; }
-
-    .social-links a {
-        color: var(--muted);
-        font-size: 0.9rem;
-        transition: color 0.3s;
-        text-decoration: none;
-    }
-
-    .social-links a:hover { color: var(--gold); }
 
     /* =========================================
        ANIMACIONES
@@ -1252,17 +1081,14 @@
 
     .reveal-right.visible { opacity: 1; transform: translateX(0); }
 
-    /* Stagger delays */
     .delay-1 { transition-delay: 0.1s !important; }
     .delay-2 { transition-delay: 0.22s !important; }
-    .delay-3 { transition-delay: 0.34s !important; }
 
     /* =========================================
        RESPONSIVE
        ========================================= */
     @media (max-width: 1024px) {
         .product-grid { grid-template-columns: 1fr 1fr; }
-        .stats-section { grid-template-columns: repeat(3, 1fr); }
         .footer-grid { grid-template-columns: 1fr 1fr; }
     }
 
@@ -1271,35 +1097,38 @@
         .cursor { display: none; }
         .nav-links { display: none; }
         .menu-toggle { display: flex; }
-        .logo { font-size: 1.3rem; letter-spacing: 6px; }
         .hero { padding: 0 5% 12%; justify-content: center; text-align: center; }
         .hero-cta { justify-content: center; flex-direction: column; }
-        .scroll-indicator { display: none; }
         .esencia-section { grid-template-columns: 1fr; gap: 60px; }
         .esencia-img-accent { display: none; }
-        .product-grid { grid-template-columns: 1fr; }
+        .product-grid { grid-template-columns: 1fr; width: 100%; }
+        .product-img-wrap img { height: 450px; }
         .section-header { flex-direction: column; align-items: flex-start; gap: 20px; }
-        .atelier-badge { display: none; }
         .stats-section { grid-template-columns: 1fr; }
         .footer-grid { grid-template-columns: 1fr; }
         .footer-bottom { flex-direction: column; gap: 20px; text-align: center; }
         .newsletter-form { flex-direction: column; }
+
+        /* CORRECCIÓN: Animaciones verticales en móvil para evitar desbordamiento */
+        .reveal-left, .reveal-right {
+            transform: translateY(20px);
+        }
+        .reveal-left.visible, .reveal-right.visible {
+            transform: translateY(0);
+        }
     }
 </style>
 
 </head>
 <body>
 
-<!-- Cursor personalizado -->
 <div class="cursor" id="cursor">
     <div class="cursor-ring" id="cursor-ring"></div>
     <div class="cursor-dot" id="cursor-dot"></div>
 </div>
 
-<!-- Overlay -->
 <div class="overlay" id="overlay"></div>
 
-<!-- NAVBAR -->
 <nav class="navbar" id="navbar">
     <a href="#inicio" class="logo">Ximier</a>
     <ul class="nav-links">
@@ -1319,24 +1148,19 @@
     </div>
 </nav>
 
-<!-- MENU MOBILE -->
-<aside class="mobile-panel" id="mobile-menu">
+<aside class="mobile-panel" id="mobile-menu" style="position: fixed; top: 0; left: -100%; width: 320px; max-width: 90%; height: 100vh; background: var(--bg-2); z-index: 2001; transition: left 0.7s var(--ease-out); border-right: 1px solid var(--border);">
     <div class="panel-header">
         <h2>Ximier</h2>
         <button class="close-btn" id="close-menu"><i class="fas fa-times"></i></button>
     </div>
-    <nav class="mobile-nav">
-        <a href="#inicio" onclick="closeAll()">Inicio</a>
-        <a href="#esencia" onclick="closeAll()">Esencia</a>
-        <a href="#productos" onclick="closeAll()">Colección</a>
-        <a href="#atelier" onclick="closeAll()">Atelier</a>
+    <nav class="mobile-nav" style="padding: 40px 36px; display: flex; flex-direction: column; gap: 20px;">
+        <a href="#inicio" onclick="closeAll()" style="font-family: var(--serif); font-size: 2rem; color: var(--muted); text-decoration: none;">Inicio</a>
+        <a href="#esencia" onclick="closeAll()" style="font-family: var(--serif); font-size: 2rem; color: var(--muted); text-decoration: none;">Esencia</a>
+        <a href="#productos" onclick="closeAll()" style="font-family: var(--serif); font-size: 2rem; color: var(--muted); text-decoration: none;">Colección</a>
+        <a href="#atelier" onclick="closeAll()" style="font-family: var(--serif); font-size: 2rem; color: var(--muted); text-decoration: none;">Atelier</a>
     </nav>
-    <div class="mobile-footer">
-        <p style="font-family: var(--serif); font-style: italic; color: var(--muted); font-size:0.9rem;">Elegancia que trasciende.</p>
-    </div>
 </aside>
 
-<!-- CARRITO -->
 <aside class="side-panel" id="cart-panel">
     <div class="panel-header">
         <h2>Tu Bolsa</h2>
@@ -1344,18 +1168,14 @@
     </div>
     <div class="cart-items-wrapper" id="cart-items"></div>
     <div class="cart-footer">
-        <div class="cart-total-row">
-            <span class="cart-total-label">Total</span>
-            <span class="cart-total-amount" id="total-amount">$0 USD</span>
+        <div class="cart-total-row" style="display: flex; justify-content: space-between; margin-bottom: 20px;">
+            <span style="font-family: var(--micro); font-size: 0.6rem; color: var(--muted);">Total</span>
+            <span id="total-amount" style="font-family: var(--serif); font-size: 1.5rem; color: var(--gold);">$0 USD</span>
         </div>
-        <button class="checkout-btn">
-            Finalizar Compra
-            <i class="fas fa-lock" style="font-size:0.7rem;"></i>
-        </button>
+        <button class="checkout-btn">Finalizar Compra</button>
     </div>
 </aside>
 
-<!-- ========== HERO ========== -->
 <header class="hero" id="inicio">
     <div class="hero-bg"></div>
     <div class="hero-content">
@@ -1370,33 +1190,21 @@
             </a>
         </div>
     </div>
-
-    <div class="scroll-indicator">
-        <div class="scroll-line"></div>
-        <span>Desplazar</span>
-    </div>
 </header>
 
-<!-- MARQUEE BAND -->
 <div class="marquee-band">
     <div class="marquee-inner">
         <span class="marquee-item">Alta Costura</span><span class="marquee-sep">✦</span>
         <span class="marquee-item">Piezas Únicas</span><span class="marquee-sep">✦</span>
-        <span class="marquee-item">Seda & Terciopelo</span><span class="marquee-sep">✦</span>
         <span class="marquee-item">Atelier Madrid</span><span class="marquee-sep">✦</span>
         <span class="marquee-item">Hecho a Mano</span><span class="marquee-sep">✦</span>
-        <span class="marquee-item">Colección 2026</span><span class="marquee-sep">✦</span>
-        <!-- Duplicado para loop infinito -->
         <span class="marquee-item">Alta Costura</span><span class="marquee-sep">✦</span>
         <span class="marquee-item">Piezas Únicas</span><span class="marquee-sep">✦</span>
-        <span class="marquee-item">Seda & Terciopelo</span><span class="marquee-sep">✦</span>
         <span class="marquee-item">Atelier Madrid</span><span class="marquee-sep">✦</span>
         <span class="marquee-item">Hecho a Mano</span><span class="marquee-sep">✦</span>
-        <span class="marquee-item">Colección 2026</span><span class="marquee-sep">✦</span>
     </div>
 </div>
 
-<!-- STATS -->
 <div class="stats-section">
     <div class="stat-item reveal">
         <span class="stat-number">XVII</span>
@@ -1412,298 +1220,128 @@
     </div>
 </div>
 
-<!-- ========== ESENCIA ========== -->
 <section id="esencia" class="esencia-section">
     <div class="esencia-visual reveal-left">
         <div class="esencia-frame"></div>
-        <img class="esencia-img-main" 
-             src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?q=80&w=900&auto=format" 
-             alt="Atelier Ximier">
-        <img class="esencia-img-accent" 
-             src="https://images.unsplash.com/photo-1558603668-6570496b66f8?q=80&w=400&auto=format" 
-             alt="Detalle de costura">
+        <img class="esencia-img-main" loading="lazy" src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?q=80&w=900&auto=format" alt="Atelier Ximier">
+        <img class="esencia-img-accent" loading="lazy" src="https://images.unsplash.com/photo-1558603668-6570496b66f8?q=80&w=400&auto=format" alt="Detalle de costura">
     </div>
     <div class="esencia-text reveal-right">
         <p class="section-label">Nuestra Filosofía</p>
-        <h2 class="esencia-title">
-            No nace de una<br>
-            tendencia, sino de<br>
-            una <em>obsesión</em>.
-        </h2>
-        <p class="esencia-body">
-            En un mundo de moda efímera, nos rebelamos a través de la aguja y el hilo. Creemos que un vestido de gala no es una prenda para una noche, sino un manifiesto de identidad que debe trascender el tiempo.
-        </p>
-        <div class="esencia-quote">
-            <p>"Donde la artesanía<br>encuentra su alma."</p>
-        </div>
-        <a href="#productos" class="btn-ghost">
-            <span class="btn-ghost-arrow"></span>
-            Ver la Colección
-        </a>
+        <h2 class="esencia-title">No nace de una<br>tendencia, sino de<br>una <em>obsesión</em>.</h2>
+        <p class="esencia-body">En un mundo de moda efímera, nos rebelamos a través de la aguja y el hilo.</p>
+        <a href="#productos" class="btn-ghost"><span class="btn-ghost-arrow"></span>Ver la Colección</a>
     </div>
 </section>
 
-<!-- ========== COLECCIÓN ========== -->
 <section id="productos" class="shop-section">
     <div class="section-header reveal">
-        <div class="section-title-group">
-            <h2 class="section-title">La Colección <em>Nocturna</em></h2>
-            <p class="section-count">3 piezas · Temporada 2026</p>
-        </div>
-        <a href="#" class="view-all">Ver todo</a>
+        <h2 class="section-title">La Colección <em>Nocturna</em></h2>
     </div>
-
     <div class="product-grid">
         <div class="product-card reveal">
             <div class="product-img-wrap">
-                <img src="https://images.unsplash.com/photo-1566162963464-3286f9014197?q=80&w=800" alt="Seda Medianoche">
-                <div class="product-overlay">
-                    <button class="add-to-cart" data-name="Seda Medianoche" data-price="1400">
-                        Añadir a la Bolsa
-                    </button>
-                </div>
+                <img loading="lazy" src="https://images.unsplash.com/photo-1566162963464-3286f9014197?q=80&w=800" alt="Seda Medianoche">
+                <div class="product-overlay"><button class="add-to-cart" data-name="Seda Medianoche" data-price="1400">Añadir a la Bolsa</button></div>
             </div>
-            <div class="product-info">
-                <div>
-                    <p class="product-name">Seda Medianoche</p>
-                </div>
-                <p class="product-price">$1,400 USD</p>
-            </div>
+            <div class="product-info"><p class="product-name">Seda Medianoche</p><p class="product-price">$1,400 USD</p></div>
         </div>
-
         <div class="product-card reveal delay-1">
             <div class="product-img-wrap">
-                <img src="https://images.unsplash.com/photo-1595777457583-95e059d581b8?q=80&w=800" alt="Terciopelo Noir">
-                <div class="product-overlay">
-                    <button class="add-to-cart" data-name="Terciopelo Noir" data-price="1850">
-                        Añadir a la Bolsa
-                    </button>
-                </div>
+                <img loading="lazy" src="https://images.unsplash.com/photo-1595777457583-95e059d581b8?q=80&w=800" alt="Terciopelo Noir">
+                <div class="product-overlay"><button class="add-to-cart" data-name="Terciopelo Noir" data-price="1850">Añadir a la Bolsa</button></div>
             </div>
-            <div class="product-info">
-                <div>
-                    <p class="product-name">Terciopelo Noir</p>
-                </div>
-                <p class="product-price">$1,850 USD</p>
-            </div>
+            <div class="product-info"><p class="product-name">Terciopelo Noir</p><p class="product-price">$1,850 USD</p></div>
         </div>
-
         <div class="product-card reveal delay-2">
             <div class="product-img-wrap">
-                <img src="https://images.unsplash.com/photo-1572804013309-82a89b47afc2?q=80&w=800" alt="Brillo Astral">
-                <div class="product-overlay">
-                    <button class="add-to-cart" data-name="Brillo Astral" data-price="2100">
-                        Añadir a la Bolsa
-                    </button>
-                </div>
+                <img loading="lazy" src="https://images.unsplash.com/photo-1572804013309-82a89b47afc2?q=80&w=800" alt="Brillo Astral">
+                <div class="product-overlay"><button class="add-to-cart" data-name="Brillo Astral" data-price="2100">Añadir a la Bolsa</button></div>
             </div>
-            <div class="product-info">
-                <div>
-                    <p class="product-name">Brillo Astral</p>
-                </div>
-                <p class="product-price">$2,100 USD</p>
-            </div>
+            <div class="product-info"><p class="product-name">Brillo Astral</p><p class="product-price">$2,100 USD</p></div>
         </div>
     </div>
 </section>
 
-<!-- ========== ATELIER ========== -->
 <section id="atelier" class="atelier-section">
-    <video class="atelier-video" autoplay muted loop playsinline 
-           poster="https://images.unsplash.com/photo-1558603668-6570496b66f8?q=80&w=1920">
+    <video class="atelier-video" autoplay muted loop playsinline poster="https://images.unsplash.com/photo-1558603668-6570496b66f8?q=80&w=1920">
         <source src="https://assets.mixkit.co/videos/preview/mixkit-sewing-a-fashion-garment-with-a-machine-41716-large.mp4" type="video/mp4">
     </video>
     <div class="atelier-overlay"></div>
-
     <div class="atelier-content reveal">
         <p class="section-label">El Proceso</p>
         <h2>El Atelier <em>Ximier</em></h2>
-        <p>
-            Cada pliegue de seda y cada costura invisible en nuestro Atelier es el resultado de horas de precisión absoluta. No buscamos vestir a miles; buscamos acompañar a quien entiende que la verdadera elegancia no grita, sino que permanece.
-        </p>
         <a href="#" class="btn-primary"><span>Conocer el Proceso</span></a>
     </div>
-
-    <!-- Badge circular SVG -->
-    <div class="atelier-badge">
-        <svg viewBox="0 0 160 160">
-            <defs>
-                <path id="circle-text" d="M 80,80 m -55,0 a 55,55 0 1,1 110,0 a 55,55 0 1,1 -110,0"/>
-            </defs>
-            <text fill="rgba(201,168,76,0.6)" font-size="9" font-family="Montserrat" letter-spacing="4">
-                <textPath href="#circle-text">HAUTE COUTURE · XIMIER ATELIER · MADRID · 2026 · </textPath>
-            </text>
-        </svg>
-        <span class="atelier-badge-center">X</span>
-    </div>
 </section>
 
-<!-- NEWSLETTER -->
-<section class="newsletter-section">
-    <div class="ornament">
-        <div class="ornament-line"></div>
-        <div class="ornament-diamond"></div>
-        <div class="ornament-line rev"></div>
-    </div>
-    <h2 class="reveal">Únete al <em style="font-style:italic; color: var(--gold);">Círculo</em> Ximier</h2>
-    <p class="reveal">Acceso exclusivo a nuevas piezas, invitaciones privadas y el arte de vestir bien.</p>
-    <div class="newsletter-form reveal">
-        <input type="email" placeholder="correo@ejemplo.com">
-        <button type="button">Unirse</button>
-    </div>
-</section>
-
-<!-- FOOTER -->
 <footer>
     <div class="footer-grid">
         <div class="footer-brand">
             <a href="#" class="logo">Ximier</a>
-            <p>Alta costura para quienes comprenden que la verdadera elegancia trasciende el tiempo y las tendencias.</p>
-        </div>
-        <div class="footer-col">
-            <h4>Explorar</h4>
-            <ul>
-                <li><a href="#">Colección</a></li>
-                <li><a href="#">Atelier</a></li>
-                <li><a href="#">Historia</a></li>
-                <li><a href="#">Contacto</a></li>
-            </ul>
-        </div>
-        <div class="footer-col">
-            <h4>Información</h4>
-            <ul>
-                <li><a href="#">Envíos & Devoluciones</a></li>
-                <li><a href="#">Cuidado de Prendas</a></li>
-                <li><a href="#">Privacidad</a></li>
-                <li><a href="#">Términos</a></li>
-            </ul>
+            <p>Alta costura para quienes comprenden que la verdadera elegancia trasciende el tiempo.</p>
         </div>
     </div>
     <div class="footer-bottom">
         <p>© 2026 Ximier Atelier — Elegancia que trasciende</p>
-        <div class="social-links">
-            <a href="#"><i class="fab fa-instagram"></i></a>
-            <a href="#"><i class="fab fa-pinterest"></i></a>
-            <a href="#"><i class="fab fa-tiktok"></i></a>
-        </div>
     </div>
 </footer>
 
 <script>
-    /* ----------------------------------------
-       CURSOR
-    ---------------------------------------- */
-    const cursor   = document.getElementById('cursor');
-    const cursorDot  = document.getElementById('cursor-dot');
+    /* CORRECCIÓN: Script de cursor mejorado para móviles */
+    const cursor = document.getElementById('cursor');
+    const cursorDot = document.getElementById('cursor-dot');
     const cursorRing = document.getElementById('cursor-ring');
-
-    let mx = 0, my = 0;
-    let rx = 0, ry = 0;
+    let mx = 0, my = 0, rx = 0, ry = 0;
 
     document.addEventListener('mousemove', e => {
-        mx = e.clientX; my = e.clientY;
-        cursorDot.style.left  = mx + 'px';
-        cursorDot.style.top   = my + 'px';
+        if (window.innerWidth > 768) {
+            cursor.style.display = 'block';
+            mx = e.clientX; my = e.clientY;
+            cursorDot.style.left = mx + 'px';
+            cursorDot.style.top = my + 'px';
+        } else {
+            cursor.style.display = 'none';
+        }
     });
 
     function animateRing() {
-        rx += (mx - rx) * 0.14;
-        ry += (my - ry) * 0.14;
-        cursorRing.style.left = rx + 'px';
-        cursorRing.style.top  = ry + 'px';
+        if (window.innerWidth > 768) {
+            rx += (mx - rx) * 0.14;
+            ry += (my - ry) * 0.14;
+            cursorRing.style.left = rx + 'px';
+            cursorRing.style.top = ry + 'px';
+        }
         requestAnimationFrame(animateRing);
     }
     animateRing();
 
-    /* ----------------------------------------
-       NAVBAR SCROLL
-    ---------------------------------------- */
+    /* NAVBAR & PANELES */
     const navbar = document.getElementById('navbar');
-    window.addEventListener('scroll', () => {
-        navbar.classList.toggle('scrolled', window.scrollY > 60);
-    });
+    window.addEventListener('scroll', () => navbar.classList.toggle('scrolled', window.scrollY > 60));
 
-    /* ----------------------------------------
-       PANELES
-    ---------------------------------------- */
-    const overlay    = document.getElementById('overlay');
-    const cartPanel  = document.getElementById('cart-panel');
+    const overlay = document.getElementById('overlay');
+    const cartPanel = document.getElementById('cart-panel');
     const mobileMenu = document.getElementById('mobile-menu');
 
-    document.getElementById('open-cart').onclick  = () => { cartPanel.classList.add('active');  overlay.classList.add('active'); };
-    document.getElementById('open-menu').onclick  = () => { mobileMenu.classList.add('active'); overlay.classList.add('active'); };
+    document.getElementById('open-cart').onclick = () => { cartPanel.classList.add('active'); overlay.classList.add('active'); };
+    document.getElementById('open-menu').onclick = () => { mobileMenu.style.left = '0'; overlay.classList.add('active'); };
+    
+    function closeAll() {
+        cartPanel.classList.remove('active');
+        mobileMenu.style.left = '-100%';
+        overlay.classList.remove('active');
+    }
+
     document.getElementById('close-cart').onclick = closeAll;
     document.getElementById('close-menu').onclick = closeAll;
     overlay.onclick = closeAll;
 
-    function closeAll() {
-        cartPanel.classList.remove('active');
-        mobileMenu.classList.remove('active');
-        overlay.classList.remove('active');
-    }
-
-    /* ----------------------------------------
-       CARRITO
-    ---------------------------------------- */
-    const cart = [];
-
-    document.querySelectorAll('.add-to-cart').forEach(btn => {
-        btn.addEventListener('click', () => {
-            const name  = btn.dataset.name;
-            const price = parseInt(btn.dataset.price);
-            cart.push({ name, price });
-            updateCart();
-            cartPanel.classList.add('active');
-            overlay.classList.add('active');
-        });
-    });
-
-    function updateCart() {
-        const container = document.getElementById('cart-items');
-        const total     = cart.reduce((s, i) => s + i.price, 0);
-
-        if (cart.length === 0) {
-            container.innerHTML = `
-                <div class="cart-empty">
-                    <i class="fas fa-shopping-bag"></i>
-                    <p>Tu bolsa está vacía</p>
-                </div>`;
-        } else {
-            container.innerHTML = cart.map((item, i) => `
-                <div class="cart-item">
-                    <div>
-                        <p class="cart-item-name">${item.name}</p>
-                        <p class="cart-item-price">$${item.price.toLocaleString()} USD</p>
-                    </div>
-                    <button class="cart-item-remove" onclick="removeItem(${i})">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </div>`).join('');
-        }
-
-        document.getElementById('total-amount').textContent = `$${total.toLocaleString()} USD`;
-        document.getElementById('cart-count').textContent   = cart.length;
-    }
-
-    window.removeItem = (i) => { cart.splice(i, 1); updateCart(); };
-
-    // Init
-    updateCart();
-
-    /* ----------------------------------------
-       REVEAL ON SCROLL
-    ---------------------------------------- */
-    const revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
-    const observer  = new IntersectionObserver(entries => {
-        entries.forEach(e => {
-            if (e.isIntersecting) {
-                e.target.classList.add('visible');
-                observer.unobserve(e.target);
-            }
-        });
-    }, { threshold: 0.12 });
-
-    revealEls.forEach(el => observer.observe(el));
+    /* REVEAL OBSERVER */
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => observer.observe(el));
 </script>
 
 </body>
